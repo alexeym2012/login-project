@@ -23,6 +23,6 @@
     </p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button>LOGIN</button>
+    <button mat-button [color]="'blue" (submit)="onLogin($event)">LOGIN</button>
   </mat-card-actions>
 </mat-card>

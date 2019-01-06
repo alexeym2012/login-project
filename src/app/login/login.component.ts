@@ -14,16 +14,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-// export class LoginComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit() {
-//   }
-
-// }
-
-export class LoginComponent {
+ export class LoginComponent implements OnInit {
 
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -35,4 +26,14 @@ export class LoginComponent {
   ]);
 
   matcher = new MyErrorStateMatcher();
+
+   constructor() { }
+
+   ngOnInit() {
+   }
+
+
+  onLogin($event: Event) {
+    alert('clicked');
+  }
 }

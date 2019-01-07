@@ -5,6 +5,7 @@ import {LoginRequest} from '../models/login-request';
 import {ApiService} from '../api.service';
 import {ELoginResponse} from '../models/login-response';
 import {Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -26,7 +27,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   formData: LoginRequest;
 
    constructor(private api: ApiService,
-               private router: Router) { }
+               private router: Router,
+               public snackBar: MatSnackBar) { }
 
    ngOnInit() {
      this.formData = new LoginRequest();
@@ -48,15 +50,18 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
               break;
 
             case ELoginResponse.BadCredentials:
-              alert('wrong password');
+            this.openSnackBar('wrong password', 'try again');
+              // alert('wrong password');
               break;
 
             case ELoginResponse.UserBlocked:
-              alert('user blocked');
+            this.openSnackBar('The user has been blocked', 'contact administration');
+              // alert('user blocked');
               break;
 
             case ELoginResponse.Error:
-              alert('unexpected error');
+            this.openSnackBar('unexpected error', 'try again');
+              // alert('unexpected error');
               break;
           }
         });
@@ -71,6 +76,14 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 
   verifyField(fieldName: string, validatorName: string): boolean {
-    return !(this.form.controls[fieldName] && this.form.controls[fieldName].touched && this.form.controls[fieldName].errors && this.form.controls[fieldName].errors[validatorName]);
+    return !(this.form.controls[fieldName]
+      && this.form.controls[fieldName].touched
+      && this.form.controls[fieldName].errors
+      && this.form.controls[fieldName].errors[validatorName]);
   }
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
+ }
 }

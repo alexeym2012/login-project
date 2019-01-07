@@ -25,10 +25,10 @@
 
 
           <mat-form-field class="login-full-width">
-            <input matInput type="password" placeholder="Password" name="password" [(ngModel)]="formData.password" required maxlength="50" minlength="0">
+            <input matInput type="password" placeholder="Password" name="password" [(ngModel)]="formData.password" required maxlength="50" minlength="6">
 
             <mat-error [hidden]="verifyField('password','required')">
-              Password is <strong>required</strong>
+              Password is <strong>required</strong> and needs to be at least 6 characters
             </mat-error>
             <mat-icon matSuffix>lock</mat-icon>
           </mat-form-field>

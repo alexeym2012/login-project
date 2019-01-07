@@ -13,7 +13,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { SuccessComponent } from './success/success.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule, MatCheckboxModule} from '@angular/material';
-
+import {MatSnackBarModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,8 @@ import {MatButtonModule, MatCheckboxModule} from '@angular/material';
     MatIconModule,
     FormsModule,
     ReactiveFormsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

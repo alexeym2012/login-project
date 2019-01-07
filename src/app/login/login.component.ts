@@ -1,7 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {FormControl, FormGroupDirective, NgForm} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {LoginRequest} from '../models/login-request';
+import {ApiService} from '../api.service';
+import {ELoginResponse} from '../models/login-response';
+import {Router} from '@angular/router';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -22,7 +25,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
   formData: LoginRequest;
 
-   constructor() { }
+   constructor(private api: ApiService,
+               private router: Router) { }
 
    ngOnInit() {
      this.formData = new LoginRequest();
@@ -32,13 +36,30 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   onLogin(form: NgForm) {
 
     if (form.valid) {
+      console.log('valid', this.formData);
+      this.api.login(this.formData)
+        .then(response => {
 
-      // store the form data in the browser session storage
-      // this.sessionStorageService.setItem('requestDemoTenantData',this.formData);
+          switch (response) {
+            case ELoginResponse.OK:
 
-      // this.router.navigateByUrl('success');
-      console.log('valid',this.formData);
+              this.router.navigateByUrl('success');
 
+              break;
+
+            case ELoginResponse.BadCredentials:
+              alert('wrong password');
+              break;
+
+            case ELoginResponse.UserBlocked:
+              alert('user blocked');
+              break;
+
+            case ELoginResponse.Error:
+              alert('unexpected error');
+              break;
+          }
+        });
 
     } else {
       Object.keys(form.controls).forEach(field => {

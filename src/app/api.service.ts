@@ -50,6 +50,9 @@ export class ApiService {
 
 
   private updateBadLoginCounter(username: string) {
+    if (!this.badLoginState[username]) {
+      this.badLoginState[username] = 0;
+    }
     this.badLoginState[username] += 1;
     this.session.setItem('badLoginState', JSON.stringify(this.badLoginState));
   }

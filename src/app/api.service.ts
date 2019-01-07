@@ -21,6 +21,9 @@ export class ApiService {
   }
 
   login(data: LoginRequest): Promise<ELoginResponse> {
+    /*this.session.setItem('isLoggedIn', 'true');
+    this.session.setItem('rememberMe', data.rememberMe.toString());
+    return Promise.resolve(ELoginResponse.OK);*/
     if (this.badLoginState[data.username] > 2) {
       return Promise.resolve(ELoginResponse.UserBlocked);
     } else {
@@ -29,7 +32,6 @@ export class ApiService {
         .toPromise()
         .then(response => {
 
-          console.log(response);
           this.session.setItem('isLoggedIn', 'true');
           this.session.setItem('rememberMe', data.rememberMe.toString());
           return ELoginResponse.OK;

@@ -14,9 +14,10 @@ export class SuccessComponent implements OnInit {
 
   ngOnInit() {
     // if an user hasn't checked "remember me" then redirect to Login page
-    const isLoggedInSession = this.session.getItem('isLoggedIn');
-    if (!isLoggedInSession || isLoggedInSession === 'false') {
-      this.router.navigateByUrl('login');
+    const rememberMeSession = this.session.getItem('rememberMe');
+    if (!rememberMeSession || rememberMeSession === 'false') {
+      // client side implementation of the remember me
+      this.session.setItem('isLoggedIn', 'false');
     }
   }
 

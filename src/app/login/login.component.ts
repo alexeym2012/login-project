@@ -43,7 +43,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
           switch (response) {
             case ELoginResponse.OK:
 
-              this.router.navigateByUrl('success');
+              this.router.navigateByUrl('/success');
 
               break;
 

@@ -38,7 +38,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   onLogin(form: NgForm) {
 
     if (form.valid) {
-      console.log('valid', this.formData);
+      //console.log('valid', this.formData);
       this.api.login(this.formData)
         .then(response => {
 
